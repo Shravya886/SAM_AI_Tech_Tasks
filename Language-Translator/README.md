@@ -34,7 +34,7 @@ language-translator/
 # ⚙️ Installation & Setup
 
 Step 1: Clone Repository  
-git clone https://github.com/Shravya886/SAM_AI_Tech_Tasks/edit/main/Language-Translator 
+git clone https://github.com/Shravya886/SAM_AI_Tech_Tasks.git
 
 Step 2: Go to Project Folder  
 cd language-translator  
@@ -82,7 +82,7 @@ Uses gTTS (Google Text-to-Speech) to convert translated text into audio and play
 # 👨‍💻 Author
 
 Shravya Mididoddi  
-GitHub: https://github.com/Shravya886/SAM_AI_Tech_Tasks/edit/main/Language-Translator  
+GitHub:https://github.com/Shravya886/SAM_AI_Tech_Tasks.git  
 
 # ⭐ Support
 
