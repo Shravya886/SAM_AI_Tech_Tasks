@@ -63,7 +63,7 @@ movie-recommender/
 # ⚙️ Installation & Setup
 
 ## 1. Clone the repository
-git clone https://github.com/Shravya886/task1-movie-recommendation-system.git
+git clone https://github.com/Shravya886/SAM_AI_Tech_Tasks.git
 cd movie-recommender
 
 
