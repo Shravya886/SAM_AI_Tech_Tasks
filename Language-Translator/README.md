@@ -34,10 +34,10 @@ language-translator/
 # ⚙️ Installation & Setup
 
 Step 1: Clone Repository  
-git clone https://github.com/Shravya886/task3-language-translator-tool.git  
+git clone https://github.com/Shravya886/SAM_AI_Tech_Tasks/edit/main/Language-Translator 
 
 Step 2: Go to Project Folder  
-cd task3-language-translator-tool  
+cd language-translator  
 
 Step 3: Install Dependencies  
 pip install googletrans==4.0.0-rc1 gtts pygame unidecode  
@@ -82,7 +82,7 @@ Uses gTTS (Google Text-to-Speech) to convert translated text into audio and play
 # 👨‍💻 Author
 
 Shravya Mididoddi  
-GitHub: https://github.com/Shravya886/task3-language-translator-tool.git  
+GitHub: https://github.com/Shravya886/SAM_AI_Tech_Tasks/edit/main/Language-Translator  
 
 # ⭐ Support
 
