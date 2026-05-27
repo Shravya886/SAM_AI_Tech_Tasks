@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ movie.title }}</title>
+
+    <style>
+        body{
+            background:#111;
+            color:white;
+            font-family:Arial;
+            padding:50px;
+        }
+
+        .container{
+            max-width:600px;
+            margin:auto;
+            background:#1f1f1f;
+            padding:30px;
+            border-radius:12px;
+            border-left:5px solid rgb(180, 28, 168);
+        }
+
+        h1{
+            color:rgb(180, 28, 168);
+        }
+
+        p{
+            color:#ccc;
+        }
+
+        a{
+            display:inline-block;
+            margin-top:20px;
+            background:rgb(180, 28, 168);
+            padding:10px 20px;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+        }
+
+        a:hover{
+            background:rgb(220, 40, 200);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>{{ movie.title }}</h1>
+
+    <p><b>Year:</b> {{ movie.year }}</p>
+    <p><b>Genre:</b> {{ movie.genre }}</p>
+
+    <p><b>Description:</b></p>
+    <p>{{ movie.description }}</p>
+
+   <a href="javascript:history.back()">⬅ Back</a>
+
+</div>
+
+</body>
+</html>

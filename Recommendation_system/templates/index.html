@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation System</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#111;
+            color:white;
+        }
+
+        /* NAVBAR */
+
+        .navbar{
+            width:100%;
+            padding:20px 40px;
+            background:black;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            position:sticky;
+            top:0;
+        }
+
+        .logo{
+            color:rgb(180, 28, 168);
+            font-size:32px;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+
+        /* SEARCH */
+
+        .search-section{
+            width:100%;
+            display:flex;
+            justify-content:center;
+            margin-top:50px;
+        }
+
+       .search-box{
+    width:60%;
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+}
+
+       .search-box input{
+    width:100%;
+    padding:18px 20px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    font-size:16px;
+    background:#1f1f1f;
+    color:white;
+    border:2px solid transparent;
+    transition:0.3s;
+}
+
+.search-box input:focus{
+    border:2px solid rgb(180, 28, 168);
+    box-shadow:0px 0px 10px rgba(180,28,168,0.5);
+}
+
+        /* Suggestions */
+
+/* Suggestions */
+
+#suggestions{
+    position:absolute;
+    width:100%;
+    background:#1f1f1f;
+    border-radius:12px;
+    margin-top:8px;
+    overflow:hidden;
+    z-index:1000;
+    border:1px solid #333;
+    box-shadow:0px 5px 20px rgba(0,0,0,0.5);
+}
+
+.suggestion-item{
+    padding:14px 16px;
+    cursor:pointer;
+    border-bottom:1px solid #2d2d2d;
+    transition:0.3s;
+    font-size:15px;
+}
+
+.suggestion-item:hover{
+    background:rgb(180, 28, 168);
+}
+
+
+
+      .search-box button{
+    padding:18px 30px;
+    border:none;
+    background:rgb(180, 28, 168);
+    color:white;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+    transition:0.3s;
+    min-width:130px;
+}
+
+.search-box button:hover{
+    background:rgb(210, 40, 195);
+    transform:scale(1.03);
+}
+       
+
+        /* SEARCHED MOVIE */
+
+        .searched-container{
+            width:80%;
+            margin:40px auto 10px auto;
+        }
+
+        .searched-title{
+            font-size:22px;
+            margin-bottom:20px;
+            color:#00ffcc;
+        }
+
+        .searched-card{
+            background:#1f1f1f;
+            padding:25px;
+            border-radius:12px;
+            border-left:5px solid rgb(180, 28, 168);
+            transition:0.3s;
+        }
+
+        .searched-card:hover{
+            transform:scale(1.02);
+        }
+
+        .searched-card h2{
+            font-size:30px;
+        }
+
+        .searched-card p{
+            margin-top:10px;
+            color:#bbb;
+        }
+
+        /* RECOMMENDATIONS */
+
+        .recommend-section{
+            width:80%;
+            margin:40px auto;
+        }
+
+        .recommend-title{
+            font-size:24px;
+            margin-bottom:20px;
+            color:#00ffcc;
+        }
+
+        .movie-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+            gap:20px;
+        }
+
+        .movie-card{
+            background:#1f1f1f;
+            padding:20px;
+            border-radius:10px;
+            transition:0.3s;
+            cursor:pointer;
+            border:1px solid #2d2d2d;
+        }
+
+        .movie-card:hover{
+            transform:translateY(-5px);
+            background:rgb(180, 28, 168);
+        }
+
+        .movie-card h3{
+            font-size:18px;
+            margin-bottom:8px;
+        }
+
+        .movie-card p{
+            color:#ccc;
+            font-size:14px;
+        }
+
+        /* NO MOVIE FOUND */
+
+        .not-found{
+            text-align:center;
+            margin-top:40px;
+            color:rgb(180, 28, 168);
+            font-size:20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+        <div class="logo">MOVIE RECOMMEDER
+        </div>
+    </div>
+
+    <!-- SEARCH -->
+
+    <div class="search-section">
+
+<form method="GET" class="search-box" action="/">
+          <div style="width:100%; position:relative;">
+
+    <input
+        type="text"
+        name="movie"
+        id="searchInput"
+        placeholder="Search movie..."
+        autocomplete="off"
+        required
+    >
+
+    <div id="suggestions"></div>
+
+</div>
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- SEARCHED MOVIE -->
+
+    {% if searched_movie %}
+
+    <div class="searched-container">
+
+        <div class="searched-title">
+            You Searched
+        </div>
+
+        <div class="searched-card">
+
+            <h2>
+                {{ searched_movie.title }}
+            </h2>
+
+          <p>
+    {{ searched_movie.year }}
+</p>
+
+<p>
+    {{ searched_movie.genre }}
+</p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    <!-- RECOMMENDATIONS -->
+
+    {% if recommendations %}
+
+    <div class="recommend-section">
+
+        <div class="recommend-title">
+            Recommended Movies
+        </div>
+
+           {% for movie in recommendations %}
+
+<a href="/movie/{{ movie.id }}?q={{ movie_name }}" style="text-decoration:none; color:inherit;">
+
+    <div class="movie-card">
+
+        <h3>{{ movie.title }}</h3>
+        <p>{{ movie.year }}</p>
+        <p>{{ movie.genre }}</p>
+
+    </div>
+
+</a>
+
+{% endfor %}
+
+      
+
+
+    </div>
+
+    {% endif %}
+
+    <!-- MOVIE NOT FOUND -->
+
+
+    <script>
+
+const searchInput = document.getElementById("searchInput");
+const suggestionsBox = document.getElementById("suggestions");
+
+searchInput.addEventListener("input", async () => {
+
+    const query = searchInput.value;
+
+    if(query.length === 0){
+        suggestionsBox.innerHTML = "";
+        return;
+    }
+
+    const response = await fetch(`/suggest?q=${query}`);
+
+    const data = await response.json();
+
+    suggestionsBox.innerHTML = "";
+
+    data.suggestions.forEach(movie => {
+
+        const div = document.createElement("div");
+
+        div.classList.add("suggestion-item");
+
+        div.innerText = movie;
+
+        div.onclick = () => {
+            searchInput.value = movie;
+            suggestionsBox.innerHTML = "";
+        };
+
+        suggestionsBox.appendChild(div);
+
+    });
+
+});
+
+</script>
+
+{% if movie_not_found %}
+
+<div class="not-found">
+    ❌ Movie not found 
+</div>
+
+{% endif %}
+</body>
+</html>

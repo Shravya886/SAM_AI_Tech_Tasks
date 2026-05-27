@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tic Tac Toe AI (Minimax)</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    cursor: pointer;
+    border: 2px solid #333;
+}
+
+.cell:hover {
+    background: #eaeaea;
+}
+
+#status {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>Tic Tac Toe AI (Minimax)</h1>
+<div id="board"></div>
+<div id="status">Your turn (X)</div>
+<button onclick="resetGame()">Restart</button>
+
+<script>
+let board = Array(9).fill("");
+let gameOver = false;
+
+const boardDiv = document.getElementById("board");
+const statusDiv = document.getElementById("status");
+
+function createBoard() {
+    boardDiv.innerHTML = "";
+    board.forEach((cell, i) => {
+        const div = document.createElement("div");
+        div.classList.add("cell");
+        div.innerText = cell;
+        div.addEventListener("click", () => userMove(i));
+        boardDiv.appendChild(div);
+    });
+}
+
+function userMove(i) {
+    if (board[i] !== "" || gameOver) return;
+
+    board[i] = "X";
+    update();
+
+    if (checkWinner(board, "X")) {
+        statusDiv.innerText = "You Win! 🎉";
+        gameOver = true;
+        return;
+    }
+
+    if (isDraw()) {
+        statusDiv.innerText = "Draw!";
+        gameOver = true;
+        return;
+    }
+
+    statusDiv.innerText = "AI is thinking...";
+    setTimeout(aiMove, 300);
+}
+
+function aiMove() {
+    let bestScore = -Infinity;
+    let move;
+
+    for (let i = 0; i < 9; i++) {
+        if (board[i] === "") {
+            board[i] = "O";
+            let score = minimax(board, 0, false);
+            board[i] = "";
+            if (score > bestScore) {
+                bestScore = score;
+                move = i;
+            }
+        }
+    }
+
+    board[move] = "O";
+    update();
+
+    if (checkWinner(board, "O")) {
+        statusDiv.innerText = "AI Wins! 🤖";
+        gameOver = true;
+        return;
+    }
+
+    if (isDraw()) {
+        statusDiv.innerText = "Draw!";
+        gameOver = true;
+        return;
+    }
+
+    statusDiv.innerText = "Your turn (X)";
+}
+
+function minimax(newBoard, depth, isMaximizing) {
+    if (checkWinner(newBoard, "O")) return 10 - depth;
+    if (checkWinner(newBoard, "X")) return depth - 10;
+    if (isDraw()) return 0;
+
+    if (isMaximizing) {
+        let best = -Infinity;
+        for (let i = 0; i < 9; i++) {
+            if (newBoard[i] === "") {
+                newBoard[i] = "O";
+                best = Math.max(best, minimax(newBoard, depth + 1, false));
+                newBoard[i] = "";
+            }
+        }
+        return best;
+    } else {
+        let best = Infinity;
+        for (let i = 0; i < 9; i++) {
+            if (newBoard[i] === "") {
+                newBoard[i] = "X";
+                best = Math.min(best, minimax(newBoard, depth + 1, true));
+                newBoard[i] = "";
+            }
+        }
+        return best;
+    }
+}
+
+function checkWinner(b, player) {
+    const win = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+    ];
+    return win.some(c => c.every(i => b[i] === player));
+}
+
+function isDraw() {
+    return board.every(cell => cell !== "") && !checkWinner(board, "X") && !checkWinner(board, "O");
+}
+
+function update() {
+    createBoard();
+}
+
+function resetGame() {
+    board = Array(9).fill("");
+    gameOver = false;
+    statusDiv.innerText = "Your turn (X)";
+    update();
+}
+
+createBoard();
+</script>
+
+</body>
+</html>
