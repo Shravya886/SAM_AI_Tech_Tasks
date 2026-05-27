@@ -40,11 +40,13 @@ sam-ai-tech-tasks/
 ## 🚀 How to Run
 
 cd <project-folder>
+
 python main.py
 
 Example:
 
 cd Language-Translator
+
 python main.py
 
 ---
@@ -56,6 +58,5 @@ python main.py
 
 ---
 
-## 👩‍💻 Author
 ## 👩‍💻 Author
 Developed by [Shravya Mididoddi](https://github.com/Shravya886)
