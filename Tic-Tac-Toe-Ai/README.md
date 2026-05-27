@@ -27,17 +27,13 @@ tic-tac-toe-ai-web/
 
 1. Clone the repository
 
-```bash
-git clone https://github.com/Shravya886/task2-Tic-Tac-Toe-Game.git
-```
+git clone https://github.com/Shravya886/SAM_AI_Tech_Tasks.gitt
 
 2. Open the project folder
 
 3. Run the application by opening:
 
-```plaintext
 index.html
-```
 
 in any web browser.
 
