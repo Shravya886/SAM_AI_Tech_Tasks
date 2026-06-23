@@ -27,7 +27,7 @@ tic-tac-toe-ai-web/
 
 1. Clone the repository
 
-git clone https://github.com/Shravya886/SAM_AI_Tech_Tasks.gitt
+git clone https://github.com/Shravya886/SAM_AI_Tech_Tasks.git
 
 2. Open the project folder
 
